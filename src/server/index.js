@@ -8,6 +8,8 @@ class Server {
 		this.app = express();
 		this.PORT = process.env.PORT || 3000;
 		this.armasRoute = '/api/armas';
+		this.naturalesRoute = '/api/naturales';
+		this.prestamosRoute = '/api/prestamos';
 
 		//DATABASE
 		this.connectDB();
@@ -36,6 +38,8 @@ class Server {
 
 	routes() {
 		this.app.use(this.armasRoute, require('../routes/armas.routes'));
+		this.app.use(this.naturalesRoute, require('../routes/naturales.routes'));
+		this.app.use(this.prestamosRoute, require('../routes/prestamos.routes'));
 	}
 
 	listen() {
