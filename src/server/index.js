@@ -10,6 +10,7 @@ class Server {
 		this.armasRoute = '/api/armas';
 		this.naturalesRoute = '/api/naturales';
 		this.prestamosRoute = '/api/prestamos';
+		this.authRoute = '/api/auth';
 
 		//DATABASE
 		this.connectDB();
@@ -40,6 +41,7 @@ class Server {
 		this.app.use(this.armasRoute, require('../routes/armas.routes'));
 		this.app.use(this.naturalesRoute, require('../routes/naturales.routes'));
 		this.app.use(this.prestamosRoute, require('../routes/prestamos.routes'));
+		this.app.use(this.authRoute, require('../routes/auth.routes'));
 	}
 
 	listen() {
