@@ -12,6 +12,10 @@ const authValidations = {
 		}),
 		check('password', 'La contraseña es requerida.').not().isEmpty(),
 	],
+	checkIfLogued: [
+		check('token', 'El token es requerido.').not().isEmpty(),
+		check('token', 'El token no tiene un formato válido.').isJWT(),
+	],
 };
 
 module.exports = authValidations;

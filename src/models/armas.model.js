@@ -6,7 +6,7 @@ const armaSchema = Schema({
 		default: 'MUS MUN CAMAJUANI',
 	},
 	codigo: {
-		type: Number,
+		type: String,
 		required: true,
 	},
 	noInventario: {
@@ -59,7 +59,6 @@ const armaSchema = Schema({
 	},
 	calibre: {
 		type: String,
-		required: true,
 	},
 	materiales: {
 		type: String,
@@ -78,10 +77,6 @@ const armaSchema = Schema({
 		type: String,
 	},
 	ubicacion: {
-		type: String,
-		required: true,
-	},
-	tipoReproduccion: {
 		type: String,
 		required: true,
 	},

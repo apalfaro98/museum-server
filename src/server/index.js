@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const multer = require('multer');
 const { dbConnection } = require('../config/database.config');
 
 class Server {
@@ -12,6 +13,16 @@ class Server {
 		this.prestamosRoute = '/api/prestamos';
 		this.authRoute = '/api/auth';
 
+		//Store files
+		this.fileStorage = multer.diskStorage({
+			destination: (req, file, cb) => {
+				cb(null, './src/images');
+			},
+			filename: (req, file, cb) => {
+				cb(null, Date.now() + '-' + file.originalname);
+			},
+		});
+
 		//DATABASE
 		this.connectDB();
 
@@ -20,6 +31,19 @@ class Server {
 
 		//Routes
 		this.routes();
+	}
+
+	//Filter images
+	fileFilter(req, file, cb) {
+		if (
+			file.mimetype === 'image/png' ||
+			file.mimetype === 'image/jpg' ||
+			file.mimetype === 'image/jpeg'
+		) {
+			cb(null, true);
+		} else {
+			cb(null, false);
+		}
 	}
 
 	async connectDB() {
@@ -33,7 +57,17 @@ class Server {
 		//Read and parse JSON
 		this.app.use(express.json());
 
-		// //Public directory
+		//Handlig multipart data like images
+		this.app.use(
+			multer({ storage: this.fileStorage, fileFilter: this.fileFilter }).single(
+				'image'
+			)
+		);
+
+		//Static Images
+		this.app.use('/images', express.static(path.join(__dirname, '../images')));
+
+		//Public directory
 		this.app.use(express.static(path.resolve(__dirname, '../public')));
 	}
 
