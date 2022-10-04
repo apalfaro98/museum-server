@@ -1,31 +1,58 @@
 const { request, response } = require('express');
+const Natural = require('../models/naturales.model');
 
-const naturalesController = {
-	getAll: (req = request, res = response) => {
-		res.status(200).json({
-			msg: 'Get all',
-		});
-	},
-	getOne: (req = request, res = response) => {
-		res.status(200).json({
-			msg: 'Get one',
-		});
-	},
-	create: (req = request, res = response) => {
-		res.status(201).json({
-			msg: 'Create',
-		});
-	},
-	update: (req = request, res = response) => {
-		res.status(200).json({
-			msg: 'Update',
-		});
-	},
-	delete: (req = request, res = response) => {
-		res.status(200).json({
-			msg: 'Delete',
-		});
-	},
+const armasController = {
+    getAll: async (req = request, res = response) => {
+        const naturales = await Natural.find();
+        res.status(200).json(naturales);
+    },
+    getOne: async (req = request, res = response) => {
+        const { id } = req.params;
+        const natural = await Natural.findById(id);
+
+        res.status(200).json(natural);
+    },
+    create: async (req = request, res = response) => {
+        const body = req.body;
+        const image = req.file;
+        if (!image) {
+            return res.status(400).json({
+                errors: [
+                    {
+                        msg: 'Debe proveer una imagen para el artículo.',
+                        param: 'image',
+                        location: 'body',
+                    },
+                ],
+            });
+        }
+        body.imageUrl = image.filename;
+        const natural = new Natural(body);
+        await natural.save();
+        return res.status(201).json(natural);
+    },
+    update: async (req = request, res = response) => {
+        const { id } = req.params;
+        const {
+            propietario,
+            codigo,
+            noInventario,
+            registroEntrada,
+            prestado,
+            recibido,
+            prestamos,
+            ...body
+        } = req.body;
+        await Natural.findByIdAndUpdate(id, body);
+        const natural = await Natural.findById(id);
+        res.status(200).json(natural);
+    },
+    delete: async (req = request, res = response) => {
+        const { id } = req.params;
+
+        const natural = await Natural.findByIdAndRemove(id);
+        res.status(200).json(natural);
+    },
 };
 
-module.exports = naturalesController;
+module.exports = armasController;
