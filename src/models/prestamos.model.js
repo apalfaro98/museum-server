@@ -1,6 +1,10 @@
 const { Schema, model } = require('mongoose');
 
 const prestamoSchema = Schema({
+    prestado: {
+        type: Boolean,
+        required: true,
+    },
     museo: {
         type: String,
         default: 'MUS MUN CAMAJUANI',
@@ -27,6 +31,14 @@ const prestamoSchema = Schema({
     },
     entregadoPor: {
         type: String,
+        required: true,
+    },
+    seccion: {
+        type: String,
+        required: true,
+    },
+    elementId: {
+        type: Schema.Types.ObjectId,
         required: true,
     },
     observaciones: {

@@ -36,6 +36,13 @@ const prestamosValidations = {
         )
             .not()
             .isEmpty(),
+        check(
+            'seccion',
+            'La sección a la que pertenece el objeto prestado es requerida.'
+        )
+            .not()
+            .isEmpty(),
+        check('elementId', 'El objeto prestado es requerido.').not().isEmpty(),
     ],
     update: [
         check('id', 'El id no es un id válido.').isMongoId(),

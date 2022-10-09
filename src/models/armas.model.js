@@ -123,12 +123,6 @@ const armaSchema = Schema({
         type: Boolean,
         default: false,
     },
-    prestamos: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Prestamo',
-        },
-    ],
 });
 
 module.exports = model('Arma', armaSchema);
