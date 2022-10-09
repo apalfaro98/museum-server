@@ -3,6 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const multer = require('multer');
 const { dbConnection } = require('../config/database.config');
+const User = require('../models/users.model');
 
 class Server {
     constructor() {
@@ -32,6 +33,9 @@ class Server {
 
         //Routes
         this.routes();
+
+        // Create the admin user if not exists
+        this.createFirstUser();
     }
 
     //Filter images
@@ -91,6 +95,17 @@ class Server {
             require('../routes/estadistica.routes')
         );
         this.app.use(this.authRoute, require('../routes/auth.routes'));
+    }
+
+    async createFirstUser() {
+        const admin = await User.findOne({ name: process.env.ADMIN_NAME });
+        if (!admin) {
+            const admin = new User({
+                name: process.env.ADMIN_NAME,
+                password: process.env.ADMIN_PASSWORD,
+            });
+            await admin.save();
+        }
     }
 
     listen() {
