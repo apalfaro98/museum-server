@@ -40,7 +40,6 @@ const armasController = {
             registroEntrada,
             prestado,
             recibido,
-            prestamos,
             ...body
         } = req.body;
         await Arma.findByIdAndUpdate(id, body);

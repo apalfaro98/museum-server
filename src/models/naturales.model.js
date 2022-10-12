@@ -6,7 +6,7 @@ const naturalSchema = Schema({
         default: 'MUS MUN CAMAJUANI',
     },
     codigo: {
-        type: Number,
+        type: String,
         required: true,
     },
     noInventario: {
