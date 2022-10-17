@@ -82,13 +82,13 @@ const getEstadistica = async (req = request, res = response) => {
     });
 
     const naturalSala = naturales.filter(
-        (natural) => natural.ubicacion == 'ALMACEN'
+        (natural) => natural.ubicacion.toUpperCase() == 'ALMACEN'
     );
     const naturalExpo = naturales.filter(
-        (natural) => natural.ubicacion == 'EXPOSICION'
+        (natural) => natural.ubicacion.toUpperCase() == 'EXPOSICION'
     );
     const naturalExcep = naturales.filter(
-        (natural) => natural.ubicacion == 'EXCEPCIONAL'
+        (natural) => natural.ubicacion.toUpperCase() == 'EXCEPCIONAL'
     );
 
     res.status(200).json({

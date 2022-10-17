@@ -99,6 +99,12 @@ const naturalSchema = Schema({
     imageUrl: {
         type: String,
     },
+    donacion: {
+        type: Boolean,
+    },
+    entregadoPor: {
+        type: String,
+    },
     prestado: {
         type: Boolean,
         default: false,
