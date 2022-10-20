@@ -6,6 +6,11 @@ const validateFields = require('../middlewares/validateFields.middleware');
 
 router
     .get('/', transferenciasController.getAll)
+    .get(
+        '/:id',
+        [...transferenciasValidations.getOne, validateFields],
+        transferenciasController.getOne
+    )
     .post(
         '/',
         [validateToken, ...transferenciasValidations.create, validateFields],

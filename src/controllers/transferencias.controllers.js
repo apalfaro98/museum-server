@@ -8,6 +8,26 @@ const transferenciasController = {
         const transferencia = await Transferencia.find();
         res.status(200).json(transferencia);
     },
+    getOne: async (req = request, res = response) => {
+        const { id } = req.params;
+        const transferencia = await Transferencia.findById(id);
+
+        if (transferencia.section === 'armas') {
+            const arma = await Arma.findById(transferencia.elementId);
+            return res.status(200).json({
+                transferencia,
+                articulo: arma,
+            });
+        } else if (transferencia.section === 'naturales') {
+            const natural = await Natural.findById(transferencia.elementId);
+            return res.status(200).json({
+                transferencia,
+                articulo: natural,
+            });
+        }
+
+        res.status(200).json(transferencia);
+    },
     create: async (req = request, res = response) => {
         const body = req.body;
 

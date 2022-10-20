@@ -1,6 +1,16 @@
 const { check } = require('express-validator');
+const Transferencia = require('../models/transferencia.model');
 
 const transferenciasValidations = {
+    getOne: [
+        check('id', 'El id no es un id válido.').isMongoId(),
+        check('id').custom(async (id) => {
+            const transferencia = await Transferencia.findById(id);
+            if (!transferencia) {
+                throw Error('La transferencia solicitada no existe.');
+            }
+        }),
+    ],
     create: [
         check(
             'responsableT',
