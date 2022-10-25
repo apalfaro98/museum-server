@@ -129,6 +129,10 @@ const armaSchema = Schema({
         type: Boolean,
         default: false,
     },
+    eliminado: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 module.exports = model('Arma', armaSchema);

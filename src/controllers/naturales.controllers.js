@@ -3,7 +3,9 @@ const Natural = require('../models/naturales.model');
 
 const armasController = {
     getAll: async (req = request, res = response) => {
-        const naturales = await Natural.find();
+        const naturales = await Natural.find({
+            eliminado: false,
+        });
         res.status(200).json(naturales);
     },
     getOne: async (req = request, res = response) => {
@@ -50,7 +52,9 @@ const armasController = {
     delete: async (req = request, res = response) => {
         const { id } = req.params;
 
-        const natural = await Natural.findByIdAndRemove(id);
+        const natural = await Natural.findByIdAndUpdate(id, {
+            eliminado: true,
+        });
         res.status(200).json(natural);
     },
 };

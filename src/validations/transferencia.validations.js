@@ -34,6 +34,7 @@ const transferenciasValidations = {
         check('elementId', 'El objeto transferido es requerido.')
             .not()
             .isEmpty(),
+        check('elementId', 'El objeto transferido es id.').isMongoId(),
     ],
 };
 

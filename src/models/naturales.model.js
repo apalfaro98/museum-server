@@ -113,6 +113,10 @@ const naturalSchema = Schema({
         type: Boolean,
         default: false,
     },
+    eliminado: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 module.exports = model('Natural', naturalSchema);

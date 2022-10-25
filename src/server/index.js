@@ -13,6 +13,8 @@ class Server {
         this.naturalesRoute = '/api/naturales';
         this.prestamosRoute = '/api/prestamos';
         this.transferenciasRoute = '/api/transferencias';
+        this.donacionesRoute = '/api/donaciones';
+        this.bajasRoute = '/api/bajas';
         this.estadisticaRoute = '/api/estadistica';
         this.authRoute = '/api/auth';
 
@@ -95,6 +97,11 @@ class Server {
             this.transferenciasRoute,
             require('../routes/transferencias.routes')
         );
+        this.app.use(
+            this.donacionesRoute,
+            require('../routes/donaciones.routes')
+        );
+        this.app.use(this.bajasRoute, require('../routes/bajas.routes'));
         this.app.use(
             this.estadisticaRoute,
             require('../routes/estadistica.routes')

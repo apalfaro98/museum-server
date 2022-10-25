@@ -3,7 +3,9 @@ const Arma = require('../models/armas.model');
 
 const armasController = {
     getAll: async (req = request, res = response) => {
-        const armas = await Arma.find();
+        const armas = await Arma.find({
+            eliminado: false,
+        });
         res.status(200).json(armas);
     },
     getOne: async (req = request, res = response) => {
@@ -49,7 +51,9 @@ const armasController = {
     delete: async (req = request, res = response) => {
         const { id } = req.params;
 
-        const arma = await Arma.findByIdAndRemove(id);
+        const arma = await Arma.findByIdAndUpdate(id, {
+            eliminado: true,
+        });
         res.status(200).json(arma);
     },
 };
